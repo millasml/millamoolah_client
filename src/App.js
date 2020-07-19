@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [apiResponse, setApiResponse] = useState("");
+  const [dbResponse, setDbResponse] = useState("");
 
   function callAPI() {
     fetch("http://localhost:9000/testAPI")
@@ -11,8 +12,16 @@ function App() {
       .then((res) => setApiResponse( res ));
   }
 
+  function callDB() {
+    fetch("http://localhost:9000/testDB")
+        .then(res => res.text())
+        .then(res => setDbResponse( res ))
+        .catch(err => err);
+}
+
   useEffect(() => {
     callAPI();
+    callDB();
   },[])
 
   return (
@@ -21,6 +30,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           {apiResponse}
+        </p>
+        <p>
+          {dbResponse}
         </p>
         <a
           className="App-link"
