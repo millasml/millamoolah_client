@@ -5,6 +5,7 @@ import "./App.css";
 function App() {
   const [apiResponse, setApiResponse] = useState("");
   const [dbResponse, setDbResponse] = useState("");
+  const [dataResponse, setDataResponse] = useState("");
 
   function callAPI() {
     fetch("http://localhost:9000/testAPI")
@@ -18,10 +19,17 @@ function App() {
         .then(res => setDbResponse( res ))
         .catch(err => err);
 }
+function callData() {
+  fetch("http://localhost:9000/testData")
+      .then(res => res.text())
+      .then(res => setDataResponse( res ))
+      .catch(err => err);
+}
 
   useEffect(() => {
     callAPI();
     callDB();
+    callData();
   },[])
 
   return (
@@ -33,6 +41,9 @@ function App() {
         </p>
         <p>
           {dbResponse}
+        </p>
+        <p>
+          {dataResponse}
         </p>
         <a
           className="App-link"
