@@ -8,6 +8,8 @@ ENV PATH /client/node_modules/.bin:$PATH
 
 # copy package.json into the container at /client
 COPY package.json /client/package.json
+COPY yarn.lock /client/yarn.lock
+
 # install dependencies
 RUN yarn install
 

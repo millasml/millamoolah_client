@@ -1,0 +1,65 @@
+@import "../custom";
+
+.landing-page {
+  width: 100vw;
+  height: 100vh;
+
+  @keyframes colorChange {
+    0% {
+      background-color: $custom-midnight-teal;
+    }
+    20% {
+      background-color: $custom-turquoise;
+    }
+    40% {
+      background-color: $custom-yellow;
+    }
+    60% {
+      background-color: $custom-pink;
+    }
+    80% {
+      background-color: $custom-blue;
+    }
+  }
+
+  .info{
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-family: $custom-body-font;
+    font-size: larger;
+    padding: 1.5rem;
+
+    a{
+      color: black;
+    }
+  }
+
+  .landing-circle {
+    width: 70%;
+    height: 150%;
+    border-radius: 50%;
+    background-color: $custom-midnight-teal;
+    position: fixed;
+    margin-top: -10%;
+    margin-left: -15%;
+    animation: colorChange 15s alternate infinite;
+  }
+
+  .signup-panel {
+    right: 0;
+    top: 0;
+    width: 45%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .btn-primary {
+      animation: colorChange 15s alternate infinite;
+      border-color: transparent;
+    }
+  }
+}

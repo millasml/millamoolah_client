@@ -1,14 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import Landing from "./views/landing";
+import LoginView from "./views/login";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+
+import * as serviceWorker from "./serviceWorker";
+
+function App() {
+      return  <Switch>
+        <Route exact path="/login" component={LoginView} />
+        <Route exact path="/" component={Landing} />
+      </Switch>
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
