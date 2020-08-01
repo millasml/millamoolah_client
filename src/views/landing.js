@@ -9,7 +9,7 @@ export default function Landing() {
   return (
     <div className="landing-page">
       <div className="info">
-        <Link to="/about">ABOUT</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+        <Link to="/home">ABOUT</Link>&nbsp;&nbsp;&nbsp;&nbsp;
         <Link to="/contact">CONTACT</Link>
       </div>
       <div className="landing-circle"></div>

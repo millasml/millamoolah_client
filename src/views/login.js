@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./login.scss";
+
+import Layout from "../containers/layout"
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -46,7 +48,9 @@ export default function LoginView() {
 
   return (
     <div className="login-view">
+      <Layout>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      </Layout>
     </div>
   );
 }
