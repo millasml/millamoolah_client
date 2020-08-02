@@ -19,7 +19,7 @@ export default function Footer(props) {
         <Row>
           <Col>
             <h1>About</h1>
-            <p>Topfolio is your one stop portfolio site solution, with fast delivery dates and guarantee that you will love you site. Thank you for your interest in us</p>
+            <p>Millamoolah makes it easy to track your expenses and savings. Thank you for your interest in us</p>
           </Col>
           <Col>
           <h1>Contact Us</h1>
@@ -28,7 +28,7 @@ export default function Footer(props) {
           </Col>
         </Row>
         <Row className = "text-center">
-            <p >Copyright © 2020 All Rights Reserved | Topfolio 2020</p>
+            <p>Copyright © 2020 All Rights Reserved |</p>&nbsp;<span className = "header-font">millamoolah 2020</span>
         </Row>
       </Container>
     </footer>

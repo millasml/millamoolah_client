@@ -1,4 +1,6 @@
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
 
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@700&family=Titillium+Web&display=swap');
 
@@ -12,72 +14,15 @@ $custom-pink: #FF5B5B;
 $custom-blue: #006992;
 $box-shadow:  0 0.375rem 1.5rem 0 rgba(140,152,164,.125);
 
-$font-family-sans-serif: $custom-body-font;
+$font-family-base: $custom-body-font;
 $headings-font-family:   $custom-title-font;
-
-h1{
-    font-family: $custom-title-font;
-    font-size: 4rem;
-}
-
-p{
-    font-family: $custom-body-font;
-}
 
 .btn-primary{
   background-color: $custom-blue;
 }
-.card {
-    margin: 1rem 0rem;
-    border-radius: 0.2rem;
-    text-align: center;
-  }
 
-.card-title{
-  color: $custom-blue;
-  font-weight: 600;
+.header-font{
+  font-family: $headings-font-family;
 }
 
-.list-group{
-  text-align: left;
-}
-
-.carousel {
-    .carousel-inner {
-    display: block;
-    margin: auto;
-
-    .carousel-caption {
-      position: relative;
-      left: auto;
-      right: auto;
-    }
-
-    .slide .carousel-indicators li{
-        background-color: black;
-    }
-
-    h3 {
-        color: black;
-        padding: 0.7rem 0rem;
-    }
-
-    p {
-      color: black;
-    }
-
-    li {
-        background-color: black;
-    }
-  }
-
-}
-
-.modal-dialog {
-  margin: 3rem;
-  width: auto;
-}
-
-
-
-
+@import "node_modules/bootstrap/scss/bootstrap";

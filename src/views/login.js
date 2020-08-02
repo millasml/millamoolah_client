@@ -1,7 +1,7 @@
 import React from "react";
 import "./login.scss";
 
-import Layout from "../containers/layout"
+import Layout from "../containers/layout";
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -21,8 +21,25 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+function storeIdToken() {
+  firebase
+    .auth()
+    .currentUser.getIdToken()
+    .then((token) => {
+      console.log(token);
+      sessionStorage.setItem("jwtToken", token);
+    });
+}
+
 const uiConfig = {
   signInFlow: "popup",
+  signInSuccessUrl: "/home",
+  callbacks: {
+    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      storeIdToken()
+      return true;
+    },
+  },
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -36,20 +53,15 @@ const uiConfig = {
 };
 
 export default function LoginView() {
-  function storeIdToken() {
-    firebase
-      .auth()
-      .currentUser.getIdToken()
-      .then((token) => {
-        console.log(token);
-        sessionStorage.setItem("jwtToken", token);
-      });
-  }
+
 
   return (
     <div className="login-view">
       <Layout>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        <StyledFirebaseAuth
+          uiConfig={uiConfig}
+          firebaseAuth={firebase.auth()}
+        />
       </Layout>
     </div>
   );

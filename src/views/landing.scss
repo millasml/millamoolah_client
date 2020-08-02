@@ -26,7 +26,6 @@
     position: fixed;
     top: 0;
     right: 0;
-    font-family: $custom-body-font;
     font-size: larger;
     padding: 1.5rem;
 
@@ -56,6 +55,10 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
+
+    h1{
+      font-size: 4rem;
+    }
 
     .btn-primary {
       animation: colorChange 15s alternate infinite;

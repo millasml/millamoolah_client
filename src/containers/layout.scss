@@ -3,4 +3,13 @@
         margin-top: 5rem;
         padding-top: 2rem;
     }
+
+    a{
+        color: black;
+
+        &:hover{
+            color: inherit;
+            text-decoration: none;
+        }
+    }
 }
