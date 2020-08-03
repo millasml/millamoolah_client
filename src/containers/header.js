@@ -11,7 +11,7 @@ export default function Header(props) {
   return (
     <header className="header">
       <Navbar fixed="top">
-        <Navbar.Brand><Link exact to = "/"><h1>millamoolah.</h1></Link></Navbar.Brand>
+        <Navbar.Brand><Link to = "/"><h1>millamoolah.</h1></Link></Navbar.Brand>
         <Nav className="ml-auto">
           <Nav.Item>
             <Nav.Link>ABOUT</Nav.Link>

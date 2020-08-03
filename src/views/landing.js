@@ -5,9 +5,9 @@ import {Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
 
-export default function Landing() {
+export default function LandingView() {
   return (
-    <div className="landing-page">
+    <div className="landing-view">
       <div className="info">
         <Link to="/home">ABOUT</Link>&nbsp;&nbsp;&nbsp;&nbsp;
         <Link to="/contact">CONTACT</Link>
