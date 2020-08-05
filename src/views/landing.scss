@@ -4,24 +4,6 @@
   width: 100vw;
   height: 100vh;
 
-  @keyframes colorChange {
-    0% {
-      background-color: $custom-midnight-teal;
-    }
-    20% {
-      background-color: $custom-turquoise;
-    }
-    40% {
-      background-color: $custom-yellow;
-    }
-    60% {
-      background-color: $custom-pink;
-    }
-    80% {
-      background-color: $custom-blue;
-    }
-  }
-
   .info{
     position: fixed;
     top: 0;
@@ -42,7 +24,7 @@
     position: fixed;
     margin-top: -10%;
     margin-left: -15%;
-    animation: colorChange 15s alternate infinite;
+    animation: backgroundColorChange 15s alternate infinite;
   }
 
   .signup-panel {

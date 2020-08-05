@@ -1,5 +1,16 @@
 @import "../custom";
 
 .home-view{
-    color: $custom-yellow;
+
+    .name{
+        animation: colorChange 15s alternate infinite;
+    }
+
+    .overview-card{
+        margin-top: 2rem;
+    }
+    
+    .chart-container{
+        height: 300px;
+    }
 }
