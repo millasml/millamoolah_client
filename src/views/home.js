@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./home.scss";
 import { API_URL } from "../api_url";
+import { Link } from "react-router-dom";
 
-import Layout from "../containers/layout";
+import {mmYYYYComparator} from "../helpers/comparator"
+import Layout from "../containers/user_layout";
 
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -36,27 +38,10 @@ export default function HomeView() {
       .catch((error) => console.log("error", error));
   };
 
-  const mmYYYYComparator = (a, b) => {
-    const [aMonth, aYear] = a.split("-");
-    const [bMonth, bYear] = b.split("-");
-    if (aYear < bYear) {
-      return -1;
-    } else if (aYear > bYear) {
-      return 1;
-    } else {
-      if (aMonth < bMonth) {
-        return -1;
-      } else if (aMonth > bMonth) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }
-  };
 
   const monthlyOverviewToChart = () => {
     if (user) {
-      const monthlyOverview = [...user.monthy_overview];
+      const monthlyOverview = [...user.monthly_overview];
       monthlyOverview.sort((itemA, itemB) => {
         return mmYYYYComparator(itemA.date, itemB.date);
       });
@@ -66,7 +51,6 @@ export default function HomeView() {
         monthlyExpense.push([d.date, d.month_expense]);
         monthlyIncome.push([d.date, d.month_income]);
       });
-      console.log(monthlyExpense);
       setMonthlyOverviewData([
         {
           label: "Expenses",
@@ -91,10 +75,6 @@ export default function HomeView() {
   useEffect(() => {
     monthlyOverviewToChart();
   }, [user]);
-
-  useEffect(() => {
-    console.log(monthlyOverviewData);
-  });
 
   return (
     <div className="home-view">
@@ -129,19 +109,20 @@ export default function HomeView() {
           </Row>
           <Row>
             <Col lg={6}>
-              <Card className="overview-card">
+              <Link to= "/spending"><Card className="overview-card">
                 <Card.Title>Spending</Card.Title>
                 user.monthly
-              </Card>
+              </Card></Link>
+              
             </Col>
             <Col lg={6}>
-              <Card className="overview-card">
+            <Link to= "/savings"><Card className="overview-card">
                 <Card.Title>Savings</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
                 </Card.Text>
-              </Card>
+              </Card></Link>
             </Col>
           </Row>
         </Container>

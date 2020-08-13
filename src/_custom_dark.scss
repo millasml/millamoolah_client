@@ -1,0 +1,14 @@
+
+$dark-background: #1b1c22;
+$dark-gray: #25262c;
+
+.dark-theme {
+  background-color: $dark-background;
+  color: white;
+
+  .card {
+    background-color: $dark-gray;
+    box-shadow: none;
+    color: white;
+  }
+}

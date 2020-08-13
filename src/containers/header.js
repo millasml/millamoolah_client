@@ -17,7 +17,13 @@ export default function Header(props) {
             <Nav.Link>ABOUT</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link>SETTINGS</Nav.Link>
+            <Nav.Link>PRIVACY POLICY</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link>TERMS</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link>MILLA</Nav.Link>
           </Nav.Item>
         </Nav>
       </Navbar>

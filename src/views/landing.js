@@ -9,12 +9,12 @@ export default function LandingView() {
   return (
     <div className="landing-view">
       <div className="info">
-        <Link to="/home">ABOUT</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+        <Link to="/about">ABOUT</Link>&nbsp;&nbsp;&nbsp;&nbsp;
         <Link to="/contact">CONTACT</Link>
       </div>
       <div className="landing-circle"></div>
       <div className="signup-panel">
-        <h1>millamoolah</h1>
+        <h1>millamoolah.</h1>
         <p>Your money manager, all in one.</p>
         <Link to="/login">
           <Button>Sign Up</Button>
