@@ -3,7 +3,6 @@ import "./spending.scss";
 import { API_URL } from "../api_url";
 import { Link } from "react-router-dom";
 
-
 import Layout from "../containers/user_layout";
 
 import { dateStringComparator } from "../helpers/comparator";
@@ -16,15 +15,10 @@ import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
 import { Chart } from "react-charts";
+import { PieChart } from "react-minimal-pie-chart";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  initializeSpendingData,
-  addSpendingEntry,
-  removeSpendingEntry,
-  selectSpendingData,
-} from "../redux/slices/spending_slice";
-import { PieChart } from "react-minimal-pie-chart";
+import { initializeSpendingData, selectSpendingData } from "../redux/slices/spending_slice";
 
 const COLORS = ["#1A535C", "#4ECDC4", "#FBB13C", "#FF5B5B", "#006992"];
 

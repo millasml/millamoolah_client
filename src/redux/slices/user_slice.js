@@ -19,4 +19,6 @@ export const { signIn, signOut } = userSlice.actions;
 
 export const selectUser = state => state.user.userData;
 
+export const selectUserId = state => state.user.userData ? state.user.userData._id : "no_userid";
+
 export default userSlice.reducer;

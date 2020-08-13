@@ -1,50 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 
-import "./add_entry.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
+import "./entry.scss";
 
 export default function AddSpendingEntry(props) {
-
-  const [entryName, setEntryName] = useState(null)
-  const [entryCost, setEntryCost] = useState(null)
-  const [entryDate, setEntryDate] = useState(null)
-
   return (
     <Form
       onSubmit={(e) => {
         e.preventDefault();
-        props.onSubmit(entryName, entryCost, entryDate)
+        props.onSubmit();
       }}
     >
-      <InputGroup className="mb-3">
+      <InputGroup className="entry mb-3">
         <FormControl
           placeholder="Item"
           aria-label="Item"
-          onChange = {event => setEntryName(event.target.value)}
-          required
+          defaultValue={props.entryName}
+          plaintext
+          readOnly
         />
         <FormControl
           placeholder="Cost"
           aria-label="Cost"
-          type = "number"
-          step=".01"
-          onChange = {event => setEntryCost(event.target.value)}
-          required
+          aria-describedby="basic-addon2"
+          defaultValue={parseFloat(props.entryCost).toFixed(2)}
+          plaintext
+          readOnly
         />
         <FormControl
           placeholder="Date"
           aria-label="Date"
           type="date"
-          onChange = {event => setEntryDate(event.target.value)}
-          required
+          aria-describedby="basic-addon2"
+          defaultValue={props.entryDate}
+          plaintext
+          readOnly
         />
         <InputGroup.Append>
           <Button variant="outline-secondary" type="submit">
-            Add
+            <FontAwesomeIcon icon={faTimesCircle} />
           </Button>
         </InputGroup.Append>
       </InputGroup>
