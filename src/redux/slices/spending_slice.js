@@ -16,13 +16,12 @@ export const spendingSlice = createSlice({
       );
     },
     removeSpendingEntry: (state, action) => {
-      console.log("remove")
       const index = action.payload
       state.intermediarySpendingData.splice(index, 1)
 
     },
     assignSpendingCategory: (state,action) => {
-      console.log(action.payload)
+      state.intermediarySpendingData[action.payload.index]["category"] = action.payload.category
     },
 
     submitNewSpendingEntries: (state, action) => {

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../containers/user_layout";
 import AddSpendingEntry from "../components/add_entry";
 import SpendingEntry from "../components/entry";
+import CategoryDrop from "../components/category_drop";
 
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
@@ -18,6 +19,7 @@ import {
   addSpendingEntry,
   removeSpendingEntry,
   selectIntermediarySpendingData,
+  assignSpendingCategory,
 } from "../redux/slices/spending_slice";
 import { selectUserId } from "../redux/slices/user_slice";
 
@@ -50,9 +52,18 @@ export default function SpendingEdit() {
   };
 
   const deleteEntry = (index) => {
-    console.log("delete entry", index)
-    dispatch(removeSpendingEntry(index))
-  }
+    console.log("delete entry", index);
+    dispatch(removeSpendingEntry(index));
+  };
+
+  const addCategory = (index, category) => {
+    dispatch(
+      assignSpendingCategory({
+        index: index,
+        category: category,
+      })
+    );
+  };
 
   return (
     <div className="spending-edit-view dark-theme">
@@ -65,12 +76,19 @@ export default function SpendingEdit() {
                 <AddSpendingEntry onSubmit={onSubmit} />
                 {IntermediarySpendingData.map((entry, index) => {
                   return (
-                    <SpendingEntry key = {`spending_entry ${index} ${entry.item} ${entry.amount} ${entry.date}`}
+                    <SpendingEntry
+                      key={`spending_entry ${index} ${entry.item} ${entry.amount} ${entry.date}`}
                       entryName={entry.item}
                       entryCost={entry.amount}
                       entryDate={entry.date}
-                      onSubmit = {() => {
-                        deleteEntry(index)
+                      entryIndex={index}
+                      color={
+                        entry.category
+                          ? COLORS[CATEGORIES.indexOf(entry.category)]
+                          : null
+                      }
+                      onSubmit={() => {
+                        deleteEntry(index);
                       }}
                     />
                   );
@@ -82,22 +100,19 @@ export default function SpendingEdit() {
                 {CATEGORIES.map((category, index) => {
                   return (
                     <Col xs={6} className="mb-5">
-                      <Card
-                        className="category-card"
-                        style={{ backgroundColor: COLORS[index] }}
-                      >
-                        <Card.Title>
-                          <h1>{category}</h1>
-                        </Card.Title>
-                      </Card>
+                      <CategoryDrop
+                        color={COLORS[index]}
+                        category={category}
+                        onDrop={(i) => {
+                          addCategory(i, category);
+                        }}
+                      />
                     </Col>
                   );
                 })}
               </Row>
               <Row>
-                <Link to="/spending">
-                  <Button>Finished</Button>
-                </Link>
+                <Button>Submit New Entries</Button>
               </Row>
             </Col>
           </Row>

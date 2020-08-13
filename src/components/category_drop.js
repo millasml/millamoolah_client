@@ -1,63 +1,35 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./drag_and_drop.scss";
+import React, { useState } from "react";
+import "./category_drop.scss";
 
-export default function DragAndDrop(props) {
-  const [drag, setDrag] = useState(false);
-  const dropRef = useRef(null);
-  const [dragCounter, setDragCounter] = useState(0);
+import Card from "react-bootstrap/Card";
 
-  const handleDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+export default function CategoryDrop(props) {
 
-  const handleDragIn = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setDragCounter(dragCounter + 1);
-    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      setDrag(true);
-    }
-  };
-
-  const handleDragOut = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragCounter(dragCounter - 1);
-    if (dragCounter === 1) {
-      setDrag(false);
-    }
-  };
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDrag(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      props.handleDrop(e.dataTransfer.files);
-      setDragCounter(0);
-    }
-  };
-
-  useEffect(() => {
-    const div = dropRef.current;
-    div.addEventListener("dragenter", handleDragIn);
-    div.addEventListener("dragleave", handleDragOut);
-    div.addEventListener("dragover", handleDrag);
-    div.addEventListener("drop", handleDrop);
-
-    return () => {
-      div.removeEventListener("dragenter", handleDragIn);
-      div.removeEventListener("dragleave", handleDragOut);
-      div.removeEventListener("dragover", handleDrag);
-      div.removeEventListener("drop", handleDrop);
-    };
-  } );
+  const [dragOver, setDragOver] = useState(false)
 
   return (
-    <div className="drag-and-drop" ref={dropRef}>
-      {drag && <div className="drag-hover"><h2>Drop File Here</h2></div>}
-      {props.children}
-    </div>
+    <Card
+      className= {`category-drop ${dragOver? "on-drag-over" : ""}`}
+      style={{ backgroundColor: props.color }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setDragOver(true)
+      }}
+      onDragLeave = {(e) => {
+        e.preventDefault();
+        setDragOver(false)
+      }}
+      onDrop = {(e) => {
+        e.preventDefault();
+        setDragOver(false)
+        const data = e.dataTransfer.getData("text/plain")
+        props.onDrop(parseInt(data))
+        console.log(props.category, data)
+      }}
+    >
+      <Card.Title>
+        <h1>{props.category}</h1>
+      </Card.Title>
+    </Card>
   );
 }

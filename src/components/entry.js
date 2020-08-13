@@ -10,15 +10,20 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import "./entry.scss";
 
-export default function AddSpendingEntry(props) {
+export default function Entry(props) {
   return (
     <Form
       onSubmit={(e) => {
         e.preventDefault();
         props.onSubmit();
       }}
+
+      draggable = "true"
+      onDragStart = {(e) => {
+          e.dataTransfer.setData("text/plain", props.entryIndex)
+      }}
     >
-      <InputGroup className="entry mb-3">
+      <InputGroup className="entry mb-3" style = {{backgroundColor: props.color}}>
         <FormControl
           placeholder="Item"
           aria-label="Item"
