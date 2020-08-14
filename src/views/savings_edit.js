@@ -1,9 +1,9 @@
 import React from "react";
-import "./savings.scss";
+import "./savings_edit.scss";
 
 import Layout from "../containers/user_layout";
 
-export default function SavingsView() {
+export default function SavingsEditView() {
 
   return (
     <div className="savings-view">

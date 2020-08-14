@@ -47,6 +47,7 @@ export default function SpendingEdit() {
         item: name,
         amount: cost,
         user_id: userId,
+        category: "Others",
       })
     );
   };
@@ -63,6 +64,25 @@ export default function SpendingEdit() {
         category: category,
       })
     );
+  };
+
+  const submitEntries = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem("jwtToken")}`)
+    console.log(JSON.stringify(IntermediarySpendingData))
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(IntermediarySpendingData),
+      redirect: "follow",
+    };
+
+    fetch( API_URL + "spending", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   return (
@@ -112,7 +132,13 @@ export default function SpendingEdit() {
                 })}
               </Row>
               <Row>
-                <Button>Submit New Entries</Button>
+                <Button onClick = {submitEntries}>Submit New Entries</Button>
+              </Row>
+              <Row>
+                <Link to= "/spending/">
+                <Button >Go Back</Button>
+                </Link>
+               
               </Row>
             </Col>
           </Row>

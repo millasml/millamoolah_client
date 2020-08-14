@@ -4,6 +4,7 @@ import { API_URL } from "../api_url";
 import { Link } from "react-router-dom";
 
 import Layout from "../containers/user_layout";
+import TransactionEntry from "../components/database_entry"
 
 import { dateStringComparator } from "../helpers/comparator";
 
@@ -22,25 +23,7 @@ import { initializeSpendingData, selectSpendingData } from "../redux/slices/spen
 
 const COLORS = ["#1A535C", "#4ECDC4", "#FBB13C", "#FF5B5B", "#006992"];
 
-function TransactionEntry(props) {
-  return (
-    <ListGroup.Item>
-      <Row>
-        <Col xs={8}>
-          <small>{props.date}</small>
-        </Col>
-        <Col>
-          <h6>{props.cost}</h6>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <h5>{props.item}</h5>
-        </Col>
-      </Row>
-    </ListGroup.Item>
-  );
-}
+
 
 export default function Spending() {
   const spendingData = useSelector(selectSpendingData);
@@ -68,6 +51,27 @@ export default function Spending() {
         });
         dispatch(initializeSpendingData(parsed));
       })
+      .catch((error) => console.log("error", error));
+  };
+
+  const deleteEntry = (id) => {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem("jwtToken")}`)
+
+    var requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: JSON.stringify({transaction_id : id}),
+      redirect: "follow",
+    };
+
+    fetch( API_URL + "spending", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        getSpendingData()
+        console.log(result)})
       .catch((error) => console.log("error", error));
   };
 
@@ -165,6 +169,9 @@ export default function Spending() {
                           date={new Date(item.date).toDateString()}
                           item={item.item}
                           cost={item.amount}
+                          onDelete = {() => {
+                            deleteEntry(item._id)
+                          }}
                         />
                       );
                     })}

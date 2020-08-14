@@ -4,14 +4,14 @@
   width: 100vw;
   height: 100vh;
 
-  .info{
+  .info {
     position: fixed;
     top: 0;
     right: 0;
     font-size: larger;
     padding: 1.5rem;
 
-    a{
+    a {
       color: black;
     }
   }
@@ -25,6 +25,15 @@
     margin-top: -10%;
     margin-left: -15%;
     animation: backgroundColorChange 15s alternate infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .header {
+    .navbar {
+      z-index: 1;
+      box-shadow: none;
+    }
   }
 
   .signup-panel {
@@ -38,7 +47,7 @@
     flex-direction: column;
     justify-content: center;
 
-    h1{
+    h1 {
       font-size: 4rem;
     }
 

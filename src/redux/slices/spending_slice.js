@@ -9,6 +9,7 @@ export const spendingSlice = createSlice({
   reducers: {
     initializeSpendingData: (state, action) => {
       state.databaseSpendingData = action.payload;
+      state.intermediarySpendingData = []
     },
     addSpendingEntry: (state, action) => {
       state.intermediarySpendingData.unshift(
@@ -22,10 +23,6 @@ export const spendingSlice = createSlice({
     },
     assignSpendingCategory: (state,action) => {
       state.intermediarySpendingData[action.payload.index]["category"] = action.payload.category
-    },
-
-    submitNewSpendingEntries: (state, action) => {
-      console.log("submit")
     },
   },
 });

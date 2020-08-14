@@ -4,14 +4,13 @@ import {Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 
+import Header from "../containers/header"
+
 
 export default function LandingView() {
   return (
     <div className="landing-view">
-      <div className="info">
-        <Link to="/about">ABOUT</Link>&nbsp;&nbsp;&nbsp;&nbsp;
-        <Link to="/contact">CONTACT</Link>
-      </div>
+      <Header/>
       <div className="landing-circle"></div>
       <div className="signup-panel">
         <h1>millamoolah.</h1>

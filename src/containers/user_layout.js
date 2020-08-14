@@ -16,13 +16,10 @@ function Header(props) {
           <Navbar.Brand><Link to = "/"><h1>millamoolah.</h1></Link></Navbar.Brand>
           <Nav className="ml-auto">
           <Nav.Item>
-              <Nav.Link>HOME</Nav.Link>
+              <Nav.Link><Link to = "/home">HOME</Link></Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link>PROFILE</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link>SETTINGS</Nav.Link>
+              <Nav.Link><Link to = "/profile">PROFILE</Link></Nav.Link>
             </Nav.Item>
           </Nav>
         </Navbar>
