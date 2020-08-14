@@ -11,9 +11,12 @@ import SpendingView from "./views/spending";
 import SpendingEditView from "./views/spending_edit";
 import SavingsView from "./views/savings";
 import SavingsEditView from "./views/savings_edit";
+import ProfileView from "./views/profile";
 
 import TOCView from "./views/toc";
 import PrivacyPolicyView from "./views/privacy_policy";
+import AboutView from "./views/about"
+import ContactView from "./views/contact"
 
 import * as serviceWorker from "./serviceWorker";
 
@@ -47,9 +50,12 @@ function App() {
         <Route exact path="/spending/edit" component={SpendingEditView} />
         <Route exact path="/savings" component={SavingsView} />
         <Route exact path="/savings/edit" component={SavingsEditView} />
+        <Route exact path="/profile" component={ProfileView} />
 
         <Route exact path="/toc" component={TOCView} />
         <Route exact path="/privacy-policy" component={PrivacyPolicyView} />
+        <Route exact path="/about" component={AboutView} />
+        <Route exact path="/contact" component={ContactView} />
     </Switch>
   );
 }
