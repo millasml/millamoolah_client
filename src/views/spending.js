@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./spending.scss";
-import { API_URL } from "../api_url";
+import { getSpendingData, deleteSpendingEntry } from "../lib";
 import { Link } from "react-router-dom";
 
 import Layout from "../containers/user_layout";
@@ -21,9 +21,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import { useSelector, useDispatch } from "react-redux";
 import { initializeSpendingData, selectSpendingData } from "../redux/slices/spending_slice";
 
-const COLORS = ["#1A535C", "#4ECDC4", "#FBB13C", "#FF5B5B", "#006992"];
-
-
+import {COLORS} from "../categories"
 
 export default function Spending() {
   const spendingData = useSelector(selectSpendingData);
@@ -32,47 +30,12 @@ export default function Spending() {
   const [currentYear, setCurrentYear] = useState(2020);
   const [monthOnMonthData, setMonthOnMonthData] = useState([]);
 
-  const getSpendingData = () => {
-    fetch(API_URL + "spending", {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("jwtToken"),
-      },
-      redirect: "follow",
-    })
-      .then((response) => {
-        console.log(response);
-        return response.text();
-      })
-      .then((result) => {
-        const parsed = JSON.parse(result);
-        parsed.sort((a, b) => {
-          return dateStringComparator(a.date, b.date);
-        });
-        dispatch(initializeSpendingData(parsed));
-      })
-      .catch((error) => console.log("error", error));
+  const setSpendingData = async () => {
+    dispatch(initializeSpendingData(await getSpendingData()));
   };
 
   const deleteEntry = (id) => {
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem("jwtToken")}`)
-
-    var requestOptions = {
-      method: "DELETE",
-      headers: myHeaders,
-      body: JSON.stringify({transaction_id : id}),
-      redirect: "follow",
-    };
-
-    fetch( API_URL + "spending", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        getSpendingData()
-        console.log(result)})
-      .catch((error) => console.log("error", error));
+    deleteSpendingEntry(id).then(setSpendingData())
   };
 
   const spendingDataToMonth = () => {
@@ -114,7 +77,7 @@ export default function Spending() {
   };
 
   useEffect(() => {
-    getSpendingData();
+    setSpendingData();
   }, []);
 
   useEffect(() => {
@@ -169,6 +132,7 @@ export default function Spending() {
                           date={new Date(item.date).toDateString()}
                           item={item.item}
                           cost={item.amount}
+                          category = {item.category}
                           onDelete = {() => {
                             deleteEntry(item._id)
                           }}

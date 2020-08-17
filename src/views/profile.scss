@@ -1,9 +1,36 @@
 @import "../custom";
 
-.profile-view{
+.profile-view {
+  .goal-card {
+    margin: 2rem 3.5rem;
 
-    .goal-card{
-        margin: 2rem 3.5rem;
+    .card-title{
+        display: flex;
+        justify-content: space-between;
     }
-    
+
+    .card-body{
+        text-align: left;
+
+        .form-check{
+            margin: 1rem 0;
+        }
+    }
+  }
+
+  .user-section{
+    margin: 2rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+  }
+
+  .name {
+    animation: colorChange 15s alternate infinite;
+  }
+
+  .recurring-form{
+    margin-top: 1.5rem;
+  }
 }

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./spending_edit.scss";
-import { API_URL } from "../api_url";
+import { submitSpendingEntries, getSpendingData } from "../lib";
 import { Link } from "react-router-dom";
+import { dateStringComparator } from "../helpers/comparator";
+
 
 import Layout from "../containers/user_layout";
 import AddSpendingEntry from "../components/add_entry";
@@ -16,6 +18,7 @@ import Button from "react-bootstrap/Button";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
+  initializeSpendingData,
   addSpendingEntry,
   removeSpendingEntry,
   selectIntermediarySpendingData,
@@ -23,21 +26,16 @@ import {
 } from "../redux/slices/spending_slice";
 import { selectUserId } from "../redux/slices/user_slice";
 
-const COLORS = ["#006992", "#1A535C", "#4ECDC4", "#FBB13C", "#FF5B5B"];
-
-const CATEGORIES = [
-  "Travel",
-  "Transportation",
-  "Food",
-  "Utilities",
-  "Subscriptions",
-  "Others",
-];
+import {COLORS, SPENDING_CATEGORIES} from "../categories"
 
 export default function SpendingEdit() {
   const IntermediarySpendingData = useSelector(selectIntermediarySpendingData);
   const userId = useSelector(selectUserId);
   const dispatch = useDispatch();
+
+  const setSpendingData = async () => {
+    dispatch(initializeSpendingData(await getSpendingData()));
+  };
 
   const onSubmit = (name, cost, date) => {
     console.log("submit", name, cost, date);
@@ -67,22 +65,9 @@ export default function SpendingEdit() {
   };
 
   const submitEntries = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem("jwtToken")}`)
-    console.log(JSON.stringify(IntermediarySpendingData))
 
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(IntermediarySpendingData),
-      redirect: "follow",
-    };
+    submitSpendingEntries(IntermediarySpendingData).then(setSpendingData())
 
-    fetch( API_URL + "spending", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
   };
 
   return (
@@ -104,7 +89,7 @@ export default function SpendingEdit() {
                       entryIndex={index}
                       color={
                         entry.category
-                          ? COLORS[CATEGORIES.indexOf(entry.category)]
+                          ? COLORS[SPENDING_CATEGORIES.indexOf(entry.category)]
                           : null
                       }
                       onSubmit={() => {
@@ -117,7 +102,7 @@ export default function SpendingEdit() {
             </Col>
             <Col>
               <Row>
-                {CATEGORIES.map((category, index) => {
+                {SPENDING_CATEGORIES.map((category, index) => {
                   return (
                     <Col xs={6} className="mb-5">
                       <CategoryDrop

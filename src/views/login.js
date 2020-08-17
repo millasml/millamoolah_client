@@ -3,9 +3,6 @@ import "./login.scss";
 
 import Layout from "../containers/layout";
 
-import { useDispatch } from "react-redux";
-import { signIn } from "../redux/slices/user_slice";
-
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
@@ -26,7 +23,6 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 export default function LoginView() {
-  const dispatch = useDispatch();
 
   function storeIdToken() {
     firebase
@@ -36,7 +32,6 @@ export default function LoginView() {
         console.log(token);
         sessionStorage.setItem("jwtToken", token);
       });
-    dispatch(signIn(firebase.auth().currentUser.displayName))
   }
   
   const uiConfig = {

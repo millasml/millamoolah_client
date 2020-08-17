@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./savings_edit.scss";
-import { API_URL } from "../api_url";
+import { submitSavingsEntries, getSavingsData } from "../lib";
 import { Link } from "react-router-dom";
 
 import Layout from "../containers/user_layout";
@@ -16,28 +16,25 @@ import Button from "react-bootstrap/Button";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
+  initializeSavingsData,
   addSavingsEntry,
   removeSavingsEntry,
   selectIntermediarySavingsData,
   assignSavingsCategory,
+  selectSavingsData,
 } from "../redux/slices/savings_slice";
 import { selectUserId } from "../redux/slices/user_slice";
 
-const COLORS = ["#006992", "#1A535C", "#4ECDC4", "#FBB13C", "#FF5B5B"];
-
-const CATEGORIES = [
-  "job",
-  "investments",
-  "pension",
-  "gifts",
-  "insurance payout",
-  "Others",
-];
+import { COLORS, SAVINGS_CATEGORIES } from "../categories";
 
 export default function SavingsEdit() {
   const IntermediarySavingsData = useSelector(selectIntermediarySavingsData);
   const userId = useSelector(selectUserId);
   const dispatch = useDispatch();
+
+  const setSavingsData = async () => {
+    dispatch(initializeSavingsData(await getSavingsData()));
+  };
 
   const onSubmit = (name, cost, date) => {
     console.log("submit", name, cost, date);
@@ -67,22 +64,7 @@ export default function SavingsEdit() {
   };
 
   const submitEntries = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem("jwtToken")}`)
-    console.log(JSON.stringify(IntermediarySavingsData))
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(IntermediarySavingsData),
-      redirect: "follow",
-    };
-
-    fetch( API_URL + "savings", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+    submitSavingsEntries(IntermediarySavingsData).then(setSavingsData());
   };
 
   return (
@@ -104,7 +86,7 @@ export default function SavingsEdit() {
                       entryIndex={index}
                       color={
                         entry.category
-                          ? COLORS[CATEGORIES.indexOf(entry.category)]
+                          ? COLORS[SAVINGS_CATEGORIES.indexOf(entry.category)]
                           : null
                       }
                       onSubmit={() => {
@@ -117,7 +99,7 @@ export default function SavingsEdit() {
             </Col>
             <Col>
               <Row>
-                {CATEGORIES.map((category, index) => {
+                {SAVINGS_CATEGORIES.map((category, index) => {
                   return (
                     <Col xs={6} className="mb-5">
                       <CategoryDrop
@@ -132,13 +114,12 @@ export default function SavingsEdit() {
                 })}
               </Row>
               <Row>
-                <Button onClick = {submitEntries}>Submit New Entries</Button>
+                <Button onClick={submitEntries}>Submit New Entries</Button>
               </Row>
               <Row>
-                <Link to= "/savings/">
-                <Button >Go Back</Button>
+                <Link to="/savings/">
+                  <Button>Go Back</Button>
                 </Link>
-               
               </Row>
             </Col>
           </Row>

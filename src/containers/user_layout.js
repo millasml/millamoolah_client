@@ -13,7 +13,7 @@ function Header(props) {
     <header className="header">
       <Navbar fixed="top">
         <Navbar.Brand>
-          <Link to="/">
+          <Link to="/home">
             <h1>millamoolah.</h1>
           </Link>
         </Navbar.Brand>
@@ -36,6 +36,11 @@ function Header(props) {
           <Nav.Item>
             <Nav.Link>
               <Link to="/profile">PROFILE</Link>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link>
+              SIGN OUT
             </Nav.Link>
           </Nav.Item>
         </Nav>

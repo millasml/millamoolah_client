@@ -18,6 +18,7 @@ export default function TransactionEntry(props) {
         <Col lg={8}>
           <small>{props.date}</small>
           <h5>{props.item}</h5>
+          <small>{props.category}</small>
         </Col>
         <Col className="vertical-center">
           <h6>${props.cost}</h6>

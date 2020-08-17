@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./home.scss";
-import { API_URL } from "../api_url";
+import { getUserData } from "../lib";
 import { Link } from "react-router-dom";
 
 import {mmYYYYComparator} from "../helpers/comparator"
@@ -23,19 +23,8 @@ export default function HomeView() {
 
   const [monthlyOverviewData, setMonthlyOverviewData] = useState([]);
 
-  const getUserData = () => {
-    fetch(API_URL + "user", {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("jwtToken"),
-      },
-      redirect: "follow",
-    })
-      .then((response) => response.text())
-      .then((result) => {
-        dispatch(signIn(JSON.parse(result)));
-      })
-      .catch((error) => console.log("error", error));
+  const setUserData = async () => {
+    dispatch(signIn(await getUserData()))
   };
 
 
@@ -69,7 +58,7 @@ export default function HomeView() {
   const monthlyOverviewToSavings = () => {};
 
   useEffect(() => {
-    getUserData();
+    setUserData();
   }, []);
 
   useEffect(() => {
