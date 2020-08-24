@@ -1,6 +1,14 @@
 @import "../custom";
 
 .user-layout{
+    .signout-button{
+        background-color: transparent;
+        color: black;
+        height: min-content;
+        padding: 8px;
+    }
+
+
     .content{
         margin-top: 5rem;
         padding-top: 2rem;

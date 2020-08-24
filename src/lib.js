@@ -2,6 +2,28 @@ import { dateStringComparator } from "./helpers/comparator";
 
 export const API_URL = "http://localhost:9000/";
 
+export const createNewUser = (user) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Authorization",
+      `Bearer ${sessionStorage.getItem("jwtToken")}`
+    );
+    console.log(JSON.stringify({user: user}));
+  
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify({user: user}),
+      redirect: "follow",
+    };
+  
+    return fetch(API_URL + "user", requestOptions)
+      .then((response) => response.text())
+      .then((result) => result)
+      .catch((error) => console.log("error", error));
+}
+
 export const getUserData = () => {
   return fetch(API_URL + "user", {
     method: "GET",

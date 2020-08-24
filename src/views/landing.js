@@ -3,6 +3,8 @@ import "./landing.scss";
 import {Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card"
+import SignInComponent from "../components/sign_in"
 
 import Header from "../containers/header"
 
@@ -15,9 +17,10 @@ export default function LandingView() {
       <div className="signup-panel">
         <h1>millamoolah.</h1>
         <p>Your money manager, all in one.</p>
-        <Link to="/login">
-          <Button>Sign Up</Button>
-        </Link>
+        <Card>
+        <SignInComponent/>
+        </Card>
+        
       </div>
       
       
