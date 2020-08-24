@@ -1,6 +1,6 @@
 import { dateStringComparator } from "./helpers/comparator";
 
-export const API_URL = "http://localhost:9000/";
+export const API_URL = "/api";
 
 export const createNewUser = (user) => {
     var myHeaders = new Headers();
